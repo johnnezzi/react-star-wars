@@ -1,9 +1,10 @@
 import React , { useState , useEffect } from 'react';
 import axios from "axios"
 import './App.css';
+import CharacterAvatar from "./components/Avatar";
 
 function App() {
-  const [ character, setCharacters ] = useState([]);
+  const [ characters, setCharacters ] = useState([]);
 
   useEffect(getPeople,[]);
 
@@ -17,7 +18,21 @@ function App() {
   };
   return (
     <div className="App">
+      <section className={"hero"}>
 
+      </section>
+      <section className={"characters"}>
+        <ul>
+          {characters.map(character => {
+            return (
+                <li>
+                    <h3>{character.name}</h3>
+                    <CharacterAvatar/>
+                </li>
+            )
+          })}
+        </ul>
+      </section>
 
     </div>
   );

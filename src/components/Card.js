@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import CharacterAvatar from "./Avatar";
 import Modal from "react-modal";
 import AdditionalDetails from "./AdditionalDetails";
+import '../css/App.css'
 
 const Card = ({character}) => {
     const [ modalShow, setModal ] = useState(false);
 
     return (
-        <div>
+        <div className={character}>
             <h3>{character.name}</h3>
             <CharacterAvatar options={character} hash={character.name}/>
-            <button onClick={() => setModal(true)}>More Info....</button>
+            <button className={"character-button"} onClick={() => setModal(true)}>More Info....</button>
             <Modal style={{
                 overlay: {
                     position: 'fixed',

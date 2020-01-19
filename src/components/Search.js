@@ -25,8 +25,8 @@ const SearchBar = ({ setCharacters, setErrorStatus }) => {
     return (
         <div className={"search-form"}>
             <form  action="">
-                <input onChange={handleChange} type="text" placeholder={"enter character name..."}/>
-                <button onClick={handleClick} >Search the Galaxy</button>
+                <input onChange={handleChange} type="text" placeholder={"enter name..."}/>
+                <button onClick={handleClick} >Search....</button>
             </form>
         </div>
     );

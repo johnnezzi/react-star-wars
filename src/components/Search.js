@@ -15,7 +15,6 @@ const SearchBar = ({ setCharacters, setErrorStatus }) => {
         setErrorStatus(false);
         search(searchCriteria)
             .then(({data}) => {
-                console.log("data", data);
                 if (data.length === 0) setErrorStatus(true);
                 setCharacters(data)
             }).catch(err => {

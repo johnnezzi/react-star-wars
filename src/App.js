@@ -1,18 +1,19 @@
 import React , { useState , useEffect } from 'react';
 import './css/App.css';
 import SWLogo from "./assets/Star_Wars_Logo (1).svg"
-import CharacterAvatar from "./components/Avatar";
 import SearchBar from "./components/Search";
 import ErrorPage from "./components/ErrorPage";
+import Card from "./components/Card";
 import ReactPaginate from 'react-paginate';
 import fetchUtils from "./utils/fetchUtils";
-const { getPeople, search } = fetchUtils;
+
+const { getPeople } = fetchUtils;
 
 function App() {
   const [ characters, setCharacters ] = useState([]);
   const [ numberOfPages, setNumberOfPages ] = useState();
   const [ errorStatus, setErrorStatus ] = useState(false);
-    console.log(errorStatus);
+
   useEffect(() => {
        getPeople()
           .then(res => {
@@ -30,18 +31,17 @@ function App() {
           <img src={SWLogo} alt="Star Wars Logo"/>
           <SearchBar setCharacters={setCharacters} setErrorStatus={setErrorStatus}/>
       </section>
+
       <section className={"characters"}>
           {errorStatus &&
-          <ErrorPage/>
-          }
+          <ErrorPage/> }
         <ul>
           {characters.map(character => {
             return (
                 <li>
-                    <h3>{character.name}</h3>
-                    <CharacterAvatar options={character} hash={character.name}/>
-                    <button onClick={search}>More Info....</button>
+                    <Card character={character}/>
                 </li>
+
             )
           })}
         </ul>

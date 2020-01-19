@@ -15,7 +15,8 @@ function App() {
           console.log(res.data.results);
           setCharacters(res.data.results);
         })
-  };
+  }
+
   return (
     <div className="App">
       <section className={"hero"}>
@@ -27,7 +28,7 @@ function App() {
             return (
                 <li>
                     <h3>{character.name}</h3>
-                    <CharacterAvatar/>
+                    <CharacterAvatar options={character} hash={character.name}/>
                 </li>
             )
           })}

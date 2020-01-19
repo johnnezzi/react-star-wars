@@ -12,7 +12,7 @@ const avatarUtils = {
     getHairStyle : function(gender) {
         const longHair = ["LongHairBigHair", "LongHairBun", "LongHairShavedSides", "LongHairDreads"];
         const shortHair = ["ShortHairShaggyMullet", "ShortHairSides", "ShortHairShortRound", "ShortHairShortWaved"];
-        return gender === "female" ? shortHair[getRandomnNumber(3)] :  longHair[getRandomnNumber(3)]
+        return gender === "male" ? shortHair[getRandomnNumber(3)] :  longHair[getRandomnNumber(3)]
 
     },
 

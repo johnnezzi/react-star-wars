@@ -3,20 +3,35 @@ import axios from "axios"
 import './App.css';
 import SWLogo from "./assets/Star_Wars_Logo (1).svg"
 import CharacterAvatar from "./components/Avatar";
+import ReactPaginate from 'react-paginate';
 
 function App() {
   const [ characters, setCharacters ] = useState([]);
+  const [ numberOfPages, setNumberOfPages ] = useState(() => getPeople());
 
   useEffect(getPeople,[]);
 
-  function getPeople(event) {
-    if (event) event.preventDefault();
-    axios.get("https://swapi.co/api/people/")
+
+  function getPeople(page = 1) {
+    const baseUrl = "https://swapi.co/api/people/";
+    const url = page ? baseUrl : baseUrl + `?search=a&page=${page}`;
+    axios.get(url)
         .then(res => {
           console.log(res.data.results);
           setCharacters(res.data.results);
+          return getNumberOfPages(res.data.count);
         })
   }
+
+  function getNumberOfPages(numberOfCharacters) {
+         const noOfPages = Math.ceil(numberOfCharacters / 10);
+         setNumberOfPages(noOfPages);
+         return noOfPages
+
+    };
+
+
+
 
   return (
     <div className="App">
@@ -34,12 +49,20 @@ function App() {
                 <li>
                     <h3>{character.name}</h3>
                     <CharacterAvatar options={character} hash={character.name}/>
+                    <button>More Info....</button>
                 </li>
             )
           })}
         </ul>
       </section>
-
+        <ReactPaginate
+            containerClassName={'pagination'}
+            subContainerClassName={'pages-pagination'}
+            breakLabel={'...'}
+            activeClassName={'active'}
+            pageCount={numberOfPages}
+            pageRangeDisplayed={3}
+            marginPagesDisplayed={1}/>
     </div>
   );
 }

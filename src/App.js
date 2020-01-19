@@ -1,44 +1,30 @@
 import React , { useState , useEffect } from 'react';
-import axios from "axios"
 import './App.css';
 import SWLogo from "./assets/Star_Wars_Logo (1).svg"
 import CharacterAvatar from "./components/Avatar";
+import SearchBar from "./components/Search";
 import ReactPaginate from 'react-paginate';
+import fetchUtils from "./utils/fetchUtils";
+const { getPeople, search } = fetchUtils;
 
 function App() {
   const [ characters, setCharacters ] = useState([]);
-  const [ numberOfPages, setNumberOfPages ] = useState(() => getPeople());
+  const [ numberOfPages, setNumberOfPages ] = useState();
 
-  useEffect(getPeople,[]);
-
-
-  function getPeople(page = 1) {
-    const baseUrl = "https://swapi.co/api/people";
-
-    console.log(baseUrl + `?search=a&page=${page}`);
-    axios.get(baseUrl + `?search=a&page=${page}`)
-        .then(res => {
-          console.log(res.data.results);
-          setCharacters(res.data.results);
-          return getNumberOfPages(res.data.count);
-        })
-  }
-
-  function getNumberOfPages(numberOfCharacters) {
-         const noOfPages = Math.ceil(numberOfCharacters / 10);
-         setNumberOfPages(noOfPages);
-         return noOfPages
-
-    };
+  useEffect(() => {
+       getPeople()
+          .then(res => {
+              const {data, count} = res;
+              setCharacters(data);
+              setNumberOfPages(Math.ceil(count /10))
+          })
+  },[]);
 
   return (
     <div className="App">
       <section className={"hero"}>
           <img src={SWLogo} alt="Star Wars Logo"/>
-          <form action="">
-              <input type="text"></input>
-              <button placeholder={"enter character name..."}>Search the Galaxy</button>
-          </form>
+          <SearchBar setCharacters={setCharacters}/>
       </section>
       <section className={"characters"}>
         <ul>
@@ -47,7 +33,7 @@ function App() {
                 <li>
                     <h3>{character.name}</h3>
                     <CharacterAvatar options={character} hash={character.name}/>
-                    <button>More Info....</button>
+                    <button onClick={search}>More Info....</button>
                 </li>
             )
           })}
@@ -61,7 +47,13 @@ function App() {
             pageCount={numberOfPages}
             pageRangeDisplayed={2}
             marginPagesDisplayed={1}
-            onPageChange={pageIndex => {getPeople(pageIndex.selected + 1 )}}/>
+            onPageChange={pageIndex => {
+                getPeople(pageIndex.selected + 1 )
+                    .then((({data}) => {
+                        setCharacters(data);
+                }))
+
+            }}/>
     </div>
   );
 }

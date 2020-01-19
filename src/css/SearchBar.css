@@ -1,0 +1,23 @@
+.search-form > form > input {
+    text-align: center;
+    margin: 2rem 2rem;
+    margin-right: 0.5rem;
+    width: 20%;
+    border: yellow dotted 1px;
+    color: yellow;
+    background-color: black;
+    border-radius: 12px;
+    font-size: 1rem;
+}
+
+.search-form > form > button {
+    text-align: center;
+    margin: 2rem 2rem;
+    margin-left: 0.5rem;
+    width: 12%;
+    border: yellow dotted 1px;
+    color: black;
+    background-color: yellow;
+    border-radius: 12px;
+    font-size: 1rem;
+}

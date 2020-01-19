@@ -88,18 +88,24 @@ body {
     list-style: none;
     color: yellow;
     display: inline-flex;
-    float: right;
+    text-align: center;
 }
 
 .pages-pagination {
     display: inline-block;
     display:inline;
     float: left;
-    margin: 1rem;
+    margin: 0.5rem;
 }
 
+.active {
+    border : yellow 1px solid;
+}
+
+
 ul.pagination > li {
-     margin: 0.5rem;
+    padding: 0.3rem;
+     margin: 0.2rem;
  }
 
 ul.pagination > li :hover{

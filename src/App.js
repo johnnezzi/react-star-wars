@@ -13,9 +13,10 @@ function App() {
 
 
   function getPeople(page = 1) {
-    const baseUrl = "https://swapi.co/api/people/";
-    const url = page ? baseUrl : baseUrl + `?search=a&page=${page}`;
-    axios.get(url)
+    const baseUrl = "https://swapi.co/api/people";
+
+    console.log(baseUrl + `?search=a&page=${page}`);
+    axios.get(baseUrl + `?search=a&page=${page}`)
         .then(res => {
           console.log(res.data.results);
           setCharacters(res.data.results);
@@ -29,9 +30,6 @@ function App() {
          return noOfPages
 
     };
-
-
-
 
   return (
     <div className="App">
@@ -61,8 +59,9 @@ function App() {
             breakLabel={'...'}
             activeClassName={'active'}
             pageCount={numberOfPages}
-            pageRangeDisplayed={3}
-            marginPagesDisplayed={1}/>
+            pageRangeDisplayed={2}
+            marginPagesDisplayed={1}
+            onPageChange={pageIndex => {getPeople(pageIndex.selected + 1 )}}/>
     </div>
   );
 }

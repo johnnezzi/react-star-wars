@@ -2,7 +2,6 @@ import axios from "axios";
 
 const fetchUtils = {
     getPeople : async function(page = 1) {
-        console.log("called", page);
         const baseUrl = "https://swapi.co/api/people";
         const res = await axios.get(baseUrl + `?search=a&page=${page}`);
         return {
@@ -16,22 +15,19 @@ const fetchUtils = {
         const res = await axios.get(`${baseUrl}${resource}/?search=${criteria}`);
         return {data: res.data.results}
     },
-
+    ////not yet implemented to be used to replace mapping function
     fetchFilms : async function( filmsUrls ) {
         const fetchedFilms = [];
          filmsUrls.map( async (filmUrl) => {
             const res = await axios.get(filmUrl);
-             console.log(res.data.title);
             fetchedFilms.push(res.data.title)
         });
-        console.log(fetchedFilms);
         return fetchedFilms
-
     },
+    ////not yet implemented to be used to fetch additional data for the modal
     fetchName : async function(url) {
         const res = await axios.get(url);
         return res.data.name;
-
     },
 
     getFilmName : function(film) {

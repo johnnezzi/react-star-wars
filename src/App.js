@@ -41,8 +41,7 @@ function App() {
                 <li>
                     <Card character={character}/>
                 </li>
-
-            )
+                )
           })}
         </ul>
       </section>
